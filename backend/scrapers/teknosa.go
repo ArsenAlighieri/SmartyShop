@@ -1,0 +1,80 @@
+﻿package scrapers
+
+import (
+	"fmt"
+	"log"
+	"smartyshop/internal"
+	"strconv"
+	"strings"
+
+	"github.com/gocolly/colly"
+)
+
+type TeknosaScraper struct{}
+
+func (s *TeknosaScraper) Scrape(query string) ([]internal.Product, error) {
+	var products []internal.Product
+
+	c := colly.NewCollector(
+		colly.AllowedDomains("www.teknosa.com"),
+	)
+
+	c.OnHTML("div#product-item", func(e *colly.HTMLElement) {
+		title := e.Attr("data-product-name")
+		if title == "" {
+			log.Println("Warning: product without title skipped")
+			return // Zorunlu alan yoksa bu ürünü atla
+		}
+
+		price := e.Attr("data-price-with-discount")
+		if price == "" {
+			price = e.Attr("data-product-price")
+		}
+
+		ratingStr := e.Attr("data-product-rating-score")
+		rating := 0.0
+		if ratingStr != "" {
+			var err error
+			rating, err = strconv.ParseFloat(strings.ReplaceAll(ratingStr, ",", "."), 64)
+			if err != nil {
+				log.Printf("Rating parse failed: %v", err)
+			}
+		}
+
+		reviewsStr := e.Attr("data-product-review-count")
+		reviews := 0
+		if reviewsStr != "" {
+			var err error
+			reviews, err = strconv.Atoi(reviewsStr)
+			if err != nil {
+				log.Printf("Reviews count parse failed: %v", err)
+			}
+		}
+
+		productURL := e.Attr("data-product-url")
+		if productURL == "" {
+			log.Println("Warning: product without URL skipped")
+			return
+		}
+
+		product := internal.Product{
+			Title:        title,
+			Price:        price + " TL",
+			ImageURL:     e.Attr("data-insider-img"),
+			URL:          "https://www.teknosa.com" + productURL,
+			Site:         "Teknosa",
+			Rating:       rating,
+			ReviewsCount: reviews,
+		}
+
+		products = append(products, product)
+	})
+
+	searchURL := fmt.Sprintf("https://www.teknosa.com/arama/?sort=mostFavorited-desc&s=%s%%3Arelevance", query)
+	err := c.Visit(searchURL)
+	if err != nil {
+		return nil, fmt.Errorf("visit failed: %w", err)
+	}
+
+	return products, nil
+}
