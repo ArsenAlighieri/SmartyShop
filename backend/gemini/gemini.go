@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"smartyshop/internal"
 	"strings"
@@ -47,15 +47,15 @@ func GetGeminiProductInsights(products []internal.Product, userQuestion string, 
 	var productList strings.Builder
 	for _, p := range products {
 		// Including more details for better analysis by the AI
-		productList.WriteString(fmt.Sprintf("- Title: %s, Price: %s, Rating: %.1f, Reviews: %d, URL: %s
-", p.Title, p.Price, p.Rating, p.ReviewsCount, p.URL))
+		productList.WriteString(fmt.Sprintf("- Title: %s, Price: %s, Rating: %.1f, Reviews: %d, URL: %s\n",
+			p.Title, p.Price, p.Rating, p.ReviewsCount, p.URL))
 	}
 
 	prompt := fmt.Sprintf(`You are an expert shopping assistant. Your task is to analyze the provided list of products and answer the user's question.
 
 If the user asks for a recommendation, selection, or ranking, you must select up to 50 best products from the list based on their title, rating, and reviews count.
 
-You must return your response as a single, raw JSON object and nothing else. Do not wrap it in markdown (e.g., ```json). The JSON object must have the following structure:
+You must return your response as a single, raw JSON object and nothing else. Do not wrap it in markdown (e.g., `+"```json"+`). The JSON object must have the following structure:
 {
   "answer": "Your detailed answer to the user's question, summarizing your findings or recommendations.",
   "products": [
@@ -99,7 +99,7 @@ Products:
 	}
 	defer resp.Body.Close()
 
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, fmt.Errorf("error reading response body: %w", err)
 	}
