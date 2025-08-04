@@ -144,5 +144,5 @@ func (h *Handler) GeminiQuery(c *gin.Context) {
 		return
 	}
 
-	c.JSON(200, gin.H{"response": resp})
+	c.JSON(200, resp)
 }
