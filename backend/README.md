@@ -4,14 +4,14 @@ This is the backend for the SmartyShop application.
 
 ## Features
 
-- Scrape products from Trendyol, Hepsiburada, and Amazon.
+- Scrape products from Trendyol, Teknosa, MediaMarkt, and Amazon.
 - Get the top 10 products based on rating.
 - Ask questions about products using Gemini AI.
 
 ## API Endpoints
 
 - `GET /products?site=<site>&query=<query>`: Scrape products from a given site.
-  - `site`: `trendyol`, `hepsiburada`, or `amazon`.
+  - `site`: `trendyol`, `teknosa`, `mediamarkt`, or `amazon`.
   - `query`: The product to search for.
 - `GET /products/top10?site=<site>&query=<query>`: Get the top 10 products from the cache.
 - `POST /gemini/query`: Ask a question about a list of products.
