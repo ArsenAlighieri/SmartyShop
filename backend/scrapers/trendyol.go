@@ -36,7 +36,10 @@ func (s *TrendyolScraper) Scrape(query string) ([]internal.Product, error) {
 		}
 		log.Printf("Price: %s", price)
 
-		imageURL := e.ChildAttr(".p-card-img", "src")
+		imageURL := e.ChildAttr(".p-card-img", "data-src")
+		if imageURL == "" {
+			imageURL = e.ChildAttr(".p-card-img", "src")
+		}
 		log.Printf("Image URL: %s", imageURL)
 
 		productURL := e.Request.AbsoluteURL(e.ChildAttr("a", "href"))

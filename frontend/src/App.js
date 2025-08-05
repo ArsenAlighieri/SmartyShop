@@ -18,6 +18,7 @@ const shuffleArray = (array) => {
 
 function App() {
   const [products, setProducts] = useState([]);
+  const [originalProducts, setOriginalProducts] = useState([]);
   const [geminiResponse, setGeminiResponse] = useState('');
   const [loading, setLoading] = useState(false);
   const [isChatActive, setIsChatActive] = useState(true);
@@ -56,6 +57,8 @@ function App() {
       }
 
       setProducts(shuffleArray(allProducts));
+      setOriginalProducts(allProducts); // Store original products with image_urls
+      console.log("Products sent to Gemini:", allProducts); // Log products before sending to Gemini
 
     } catch (error) {
       console.error('Error during product search:', error);
@@ -80,7 +83,15 @@ function App() {
       const data = await response.json();
       setGeminiResponse(data.answer); // Correctly access the 'answer' field
       if (data.products && data.products.length > 0) {
-        setProducts(data.products); // Update products with Gemini's filtered list
+        const productsWithImages = data.products.map(geminiProduct => {
+          const originalProduct = originalProducts.find(op => op.title === geminiProduct.title && op.url === geminiProduct.url);
+          return {
+            ...geminiProduct,
+            image_url: originalProduct ? originalProduct.image_url : geminiProduct.image_url
+          };
+        });
+        setProducts(productsWithImages); // Update products with Gemini's filtered list, now with image_urls
+        console.log("Products from Gemini (with images):", productsWithImages); // Log Gemini's product list
       } else {
         setProducts([]); // Clear products if Gemini returns none
       }
