@@ -78,7 +78,7 @@ Products:
 %s
 `, userQuestion, productList.String())
 
-	url := fmt.Sprintf("https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=%s", apiKey)
+	url := fmt.Sprintf("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=%s", apiKey)
 
 	requestBody, err := json.Marshal(GeminiRequest{
 		Contents: []Content{
