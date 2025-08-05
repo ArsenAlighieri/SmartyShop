@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import AccessibilityMenu from './components/AccessibilityMenu';
 import './App.css';
 import ChatSidemenu from './components/ChatSidemenu';
 import ProductGrid from './components/ProductGrid';
@@ -22,6 +23,51 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [isChatActive, setIsChatActive] = useState(true);
   const [error, setError] = useState('');
+  const [screenReaderMode, setScreenReaderMode] = useState('off'); // 'off', 'hover', 'all'
+
+  // Speech synthesis setup
+  useEffect(() => {
+    const synth = window.speechSynthesis;
+    if (!synth) {
+      console.warn('Speech synthesis not supported by this browser.');
+      return;
+    }
+
+    const speak = (text) => {
+      if (synth.speaking) {
+        synth.cancel();
+      }
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'en-US';
+      synth.speak(utterance);
+    };
+
+    const handleMouseOver = (e) => {
+      if (screenReaderMode !== 'hover') return;
+      const target = e.target;
+      const text = target.innerText || target.alt || target.ariaLabel;
+      if (text) {
+        speak(text);
+      }
+    };
+
+    if (screenReaderMode === 'all') {
+      speak(document.body.innerText);
+    } else {
+      synth.cancel(); // Stop speaking if mode changes from 'all'
+    }
+
+    if (screenReaderMode === 'hover') {
+      document.addEventListener('mouseover', handleMouseOver);
+    } else {
+      document.removeEventListener('mouseover', handleMouseOver);
+    }
+
+    return () => {
+      synth.cancel();
+      document.removeEventListener('mouseover', handleMouseOver);
+    };
+  }, [screenReaderMode]);
 
   const handleSearch = async (query) => {
     setLoading(true);
@@ -93,6 +139,10 @@ function App() {
 
   return (
     <div className={`App ${isChatActive ? 'chat-centric' : 'grid-view'}`}>
+      <AccessibilityMenu 
+        screenReaderMode={screenReaderMode} 
+        setScreenReaderMode={setScreenReaderMode} 
+      />
       {loading && <LoadingSpinner />}
       <div className="chat-container">
         <ChatSidemenu 

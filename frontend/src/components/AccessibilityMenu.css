@@ -1,0 +1,95 @@
+.accessibility-menu-container {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1000;
+}
+
+.accessibility-toggle-button {
+  background-color: var(--button-primary);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.accessibility-toggle-button:hover {
+  background-color: var(--button-hover);
+  transform: scale(1.1);
+}
+
+.accessibility-toggle-button svg {
+  width: 28px;
+  height: 28px;
+}
+
+.accessibility-dropdown {
+  position: absolute;
+  top: 65px;
+  left: 0;
+  background-color: var(--background-light);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1rem;
+  width: 250px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.accessibility-dropdown fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.accessibility-dropdown legend {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-color);
+  width: 100%;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.8rem;
+}
+
+.radio-option input[type="radio"] {
+  margin-right: 0.8rem;
+  accent-color: var(--accent-blue);
+  width: 18px;
+  height: 18px;
+}
+
+.radio-option label {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.radio-option label:hover {
+  color: var(--text-primary);
+}
