@@ -1,0 +1,114 @@
+import React, { useState, useEffect } from 'react';
+import './App.css';
+import ChatSidemenu from './components/ChatSidemenu';
+import ProductGrid from './components/ProductGrid';
+import LoadingSpinner from './components/LoadingSpinner';
+import GeminiResponseDisplay from './components/GeminiResponseDisplay';
+
+// Fisher-Yates (aka Knuth) Shuffle
+const shuffleArray = (array) => {
+  let currentIndex = array.length, randomIndex;
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+    [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+  }
+  return array;
+};
+
+function App() {
+  const [products, setProducts] = useState([]);
+  const [geminiResponse, setGeminiResponse] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [isChatActive, setIsChatActive] = useState(true);
+  const [error, setError] = useState('');
+
+  const handleSearch = async (query) => {
+    setLoading(true);
+    setProducts([]);
+    setGeminiResponse('');
+    setError('');
+    setIsChatActive(false);
+
+    const sites = ['trendyol', 'teknosa', 'mediamarkt', 'amazon'];
+    try {
+      const fetchPromises = sites.map(site =>
+        fetch(`http://localhost:8080/products?site=${site}&query=${encodeURIComponent(query)}`)
+          .then(response => {
+            if (!response.ok) {
+              // Don't throw, just log and return empty for this source
+              console.error(`Failed to fetch from ${site}: ${response.status}`);
+              return [];
+            }
+            return response.json();
+          })
+          .catch(err => {
+            console.error(`Error connecting to ${site}:`, err);
+            return []; // Return empty array on network error
+          })
+      );
+
+      const results = await Promise.all(fetchPromises);
+      const allProducts = results.flat().filter(p => p && p.title && p.price); // Flatten and basic validation
+      
+      if (allProducts.length === 0) {
+        setError('No products found for your query. Please try another search.');
+      }
+
+      setProducts(shuffleArray(allProducts));
+
+    } catch (error) {
+      console.error('Error during product search:', error);
+      setError('An unexpected error occurred. Please try again.');
+    }
+    setLoading(false);
+  };
+
+  const handleGeminiQuery = async (query, productContext) => {
+    setLoading(true);
+    setGeminiResponse('');
+    setError('');
+    try {
+      const response = await fetch('http://localhost:8080/gemini/query', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query: query, products: productContext }),
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      setGeminiResponse(data.answer); // Correctly access the 'answer' field
+      if (data.products && data.products.length > 0) {
+        setProducts(data.products); // Update products with Gemini's filtered list
+      } else {
+        setProducts([]); // Clear products if Gemini returns none
+      }
+    } catch (error) {
+      console.error('Error querying Gemini:', error);
+      setError('Failed to get a response from the AI assistant.');
+    }
+    setLoading(false);
+  };
+
+  return (
+    <div className={`App ${isChatActive ? 'chat-centric' : 'grid-view'}`}>
+      {loading && <LoadingSpinner />}
+      <div className="chat-container">
+        <ChatSidemenu 
+          onSearch={handleSearch} 
+          loading={loading} 
+          onGeminiQuery={handleGeminiQuery} 
+          products={products}
+        />
+      </div>
+      <div className="product-grid-area">
+        {error && <p className="error-message">{error}</p>}
+        <GeminiResponseDisplay response={geminiResponse} />
+        <ProductGrid products={products} />
+      </div>
+    </div>
+  );
+}
+
+export default App;

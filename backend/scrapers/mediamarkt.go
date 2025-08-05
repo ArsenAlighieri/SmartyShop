@@ -7,6 +7,8 @@ import (
 	"strconv"
 	"strings"
 
+	"net/url"
+
 	"github.com/gocolly/colly"
 	"smartyshop/internal"
 )
@@ -79,7 +81,8 @@ func (s *MediaMarktScraper) Scrape(query string) ([]internal.Product, error) {
 		products = append(products, product)
 	})
 
-	searchURL := fmt.Sprintf("https://www.mediamarkt.com.tr/tr/search.html?query=%s", query)
+	encodedQuery := url.QueryEscape(query)
+	searchURL := fmt.Sprintf("https://www.mediamarkt.com.tr/tr/search.html?query=%s", encodedQuery)
 	err := c.Visit(searchURL)
 	if err != nil {
 		return nil, err

@@ -1,0 +1,153 @@
+.chat-sidemenu {
+    background-color: var(--background-light);
+    padding: 3rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    height: 100%;
+    box-sizing: border-box;
+    color: var(--text-primary);
+}
+
+.logo {
+    font-family: 'Inter', sans-serif; /* Daha iyi bir font */
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: var(--accent-light-blue);
+    margin-bottom: 0.5rem;
+    text-align: center;
+    letter-spacing: -1px;
+    display: flex; /* Flexbox kullanarak logo ve metni yan yana getir */
+    align-items: center; /* Dikeyde ortala */
+    justify-content: center; /* Yatayda ortala */
+}
+
+.logo-img {
+    max-width: 40px; /* Logonun boyutunu ayarlayın */
+    height: auto;
+    margin-right: 10px; /* Logo ile metin arasına boşluk */
+}
+
+.subtitle {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    margin-bottom: 2.5rem;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.search-section form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.input-group input[type="text"],
+.input-group button,
+textarea {
+    width: 100%;
+    padding: 1.1rem 1.4rem;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    font-size: 1.05rem;
+    background-color: var(--input-background);
+    color: var(--text-primary);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-sizing: border-box;
+}
+
+.input-group input[type="text"]::placeholder,
+textarea::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.6;
+}
+
+.input-group input[type="text"]:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--accent-light-blue);
+    box-shadow: 0 0 0 4px rgba(97, 218, 251, 0.2);
+}
+
+.input-group button {
+    background-color: var(--button-primary);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    letter-spacing: 0.5px;
+}
+
+.input-group button:hover {
+    background-color: var(--button-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(233, 69, 96, 0.3);
+}
+
+.input-group button:disabled {
+    background-color: #4a232f;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.gemini-section {
+    border-top: 1px solid var(--border-color);
+    padding-top: 2.5rem;
+    margin-top: auto; /* Pushes it to the bottom */
+}
+
+.gemini-section h3 {
+    font-size: 1.7rem;
+    color: var(--accent-light-blue);
+    margin-bottom: 0.8rem;
+    font-weight: 700;
+}
+
+.gemini-section p {
+    color: var(--text-secondary);
+    margin-bottom: 1.8rem;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.gemini-section textarea {
+    height: 140px;
+    resize: vertical;
+    margin-bottom: 1.2rem;
+    background-color: var(--input-background);
+    color: var(--text-primary);
+}
+
+.gemini-section button {
+    background-color: var(--accent-blue);
+}
+
+.gemini-section button:hover {
+    background-color: #0056b3;
+    box-shadow: 0 8px 20px rgba(0, 123, 255, 0.3);
+}
+
+.gemini-response {
+    background-color: var(--card-background);
+    border-radius: 15px;
+    padding: 1.8rem;
+    margin-top: 2rem;
+    box-shadow: 0 6px 20px var(--shadow-color);
+}
+
+.gemini-response h4 {
+    color: var(--accent-light-blue);
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.gemini-response p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    white-space: pre-wrap;
+}

@@ -2,6 +2,7 @@ package scrapers
 
 import (
 	"fmt"
+	"net/url"
 	"smartyshop/internal"
 	"smartyshop/pkg/utils"
 	"strconv"
@@ -86,7 +87,7 @@ func (s *AmazonScraper) Scrape(query string) ([]internal.Product, error) {
 	})
 
 	convertedQuery := utils.ConvertToEnglishChars(query)
-	err := c.Visit(fmt.Sprintf("https://www.amazon.com.tr/s?k=%s", convertedQuery))
+	err := c.Visit(fmt.Sprintf("https://www.amazon.com.tr/s?k=%s", url.QueryEscape(convertedQuery)))
 	if err != nil {
 		return nil, err
 	}
