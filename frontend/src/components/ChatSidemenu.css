@@ -1,153 +1,140 @@
 .chat-sidemenu {
-    background-color: var(--background-light);
-    padding: 3rem 2rem;
+    background-color: var(--secondary-bg);
+    padding: 2rem 1.5rem;
     display: flex;
     flex-direction: column;
-    gap: 2.5rem;
     height: 100%;
     box-sizing: border-box;
     color: var(--text-primary);
 }
 
-.logo {
-    font-family: 'Inter', sans-serif; /* Daha iyi bir font */
-    font-size: 2.8rem;
-    font-weight: 800;
-    color: var(--accent-light-blue);
-    margin-bottom: 0.5rem;
-    text-align: center;
-    letter-spacing: -1px;
-    display: flex; /* Flexbox kullanarak logo ve metni yan yana getir */
-    align-items: center; /* Dikeyde ortala */
-    justify-content: center; /* Yatayda ortala */
+.logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
 }
 
 .logo-img {
-    max-width: 40px; /* Logonun boyutunu ayarlayın */
-    height: auto;
-    margin-right: 10px; /* Logo ile metin arasına boşluk */
+    width: 50px;
+    height: 62px;
+    margin-right: 22px;
+}
+
+.logo-text {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.5px;
 }
 
 .subtitle {
-    font-size: 1.25rem;
+    font-size: 1rem;
     color: var(--text-secondary);
-    margin-bottom: 2.5rem;
     text-align: center;
-    line-height: 1.5;
+    margin-bottom: 2rem;
+    line-height: 1.4;
 }
 
-.search-section form {
+.search-section, .gemini-section {
+    background-color: var(--primary-bg);
+    padding: 1.5rem;
+    border-radius: 15px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.search-section form, .gemini-section form {
     display: flex;
     flex-direction: column;
-    gap: 1.2rem;
+    gap: 1rem;
 }
 
 .input-group input[type="text"],
 .input-group button,
 textarea {
     width: 100%;
-    padding: 1.1rem 1.4rem;
+    padding: 0.9rem 1rem;
     border: 1px solid var(--border-color);
-    border-radius: 12px;
-    font-size: 1.05rem;
-    background-color: var(--input-background);
+    border-radius: 10px;
+    font-size: 0.95rem;
+    background-color: var(--tertiary-bg);
     color: var(--text-primary);
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.3s ease;
     box-sizing: border-box;
 }
 
 .input-group input[type="text"]::placeholder,
 textarea::placeholder {
     color: var(--text-secondary);
-    opacity: 0.6;
+    opacity: 0.7;
 }
 
 .input-group input[type="text"]:focus,
 textarea:focus {
     outline: none;
-    border-color: var(--accent-light-blue);
-    box-shadow: 0 0 0 4px rgba(97, 218, 251, 0.2);
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(233, 69, 96, 0.2);
 }
 
 .input-group button {
-    background-color: var(--button-primary);
+    background: linear-gradient(45deg, var(--accent-color), #f0627e);
     color: white;
     border: none;
     cursor: pointer;
-    font-weight: 700;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-weight: 600;
     letter-spacing: 0.5px;
 }
 
 .input-group button:hover {
-    background-color: var(--button-hover);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(233, 69, 96, 0.3);
+    opacity: 0.9;
+    transform: translateY(-2px);
 }
 
 .input-group button:disabled {
-    background-color: #4a232f;
+    background: #5a2d36;
     cursor: not-allowed;
     transform: none;
-    box-shadow: none;
 }
 
 .gemini-section {
-    border-top: 1px solid var(--border-color);
-    padding-top: 2.5rem;
     margin-top: auto; /* Pushes it to the bottom */
 }
 
 .gemini-section h3 {
-    font-size: 1.7rem;
-    color: var(--accent-light-blue);
-    margin-bottom: 0.8rem;
-    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--text-primary);
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    text-align: center;
+
 }
 
 .gemini-section p {
     color: var(--text-secondary);
-    margin-bottom: 1.8rem;
-    font-size: 1rem;
-    line-height: 1.6;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    text-align: center;
+
 }
 
 .gemini-section textarea {
-    height: 140px;
+    height: 120px;
     resize: vertical;
-    margin-bottom: 1.2rem;
-    background-color: var(--input-background);
-    color: var(--text-primary);
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    background-color: #2d2d2d; /* Koyu arkaplan */
+    border: 1px solid var(--border-color);
+    color: #e0e0e0; /* Açık renk metin */
 }
 
 .gemini-section button {
-    background-color: var(--accent-blue);
+    background: linear-gradient(45deg, #4a90e2, #54a0ff);
 }
 
 .gemini-section button:hover {
-    background-color: #0056b3;
-    box-shadow: 0 8px 20px rgba(0, 123, 255, 0.3);
-}
-
-.gemini-response {
-    background-color: var(--card-background);
-    border-radius: 15px;
-    padding: 1.8rem;
-    margin-top: 2rem;
-    box-shadow: 0 6px 20px var(--shadow-color);
-}
-
-.gemini-response h4 {
-    color: var(--accent-light-blue);
-    margin-top: 0;
-    margin-bottom: 1rem;
-    font-size: 1.2rem;
-    font-weight: 600;
-}
-
-.gemini-response p {
-    color: var(--text-secondary);
-    font-size: 0.95rem;
-    line-height: 1.7;
-    white-space: pre-wrap;
+    opacity: 0.9;
 }

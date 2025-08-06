@@ -1,106 +1,102 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap');
 
 :root {
-  --background-dark: #121212; /* Koyu arka plan */
-  --background-light: #1e1e1e; /* Daha açık koyu arka plan */
-  --text-primary: #e0e0e0; /* Açık gri metin */
-  --text-secondary: #a0a0a0; /* Orta gri metin */
-  --accent-blue: #007bff; /* Mavi vurgu */
-  --accent-light-blue: #61dafb; /* Açık mavi vurgu */
-  --button-primary: #e94560; /* Kırmızımsı düğme */
-  --button-hover: #cf3550; /* Kırmızımsı düğme hover */
-  --card-background: #2a2a2a; /* Kart arka planı */
-  --border-color: #3a3a3a; /* Kenarlık rengi */
-  --shadow-color: rgba(0, 0, 0, 0.5); /* Gölge rengi */
-  --input-background: #333333; /* Input arka planı */
+    --primary-bg: #1a1a2e;
+    --secondary-bg: #16213e;
+    --tertiary-bg: #0f3460;
+    --accent-color: #e94560;
+    --text-primary: #ffffff;
+    --text-secondary: #a9a9a9;
+    --border-color: #5a2d36;
+    --shadow-color: rgba(0, 0, 0, 0.2);
+    --success-color: #5cb85c;
+    --error-color: #d9534f;
 }
 
 body {
-  margin: 0;
-  font-family: 'Inter', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: var(--background-dark);
-  color: var(--text-primary);
-  overflow: hidden; /* Prevent scrollbars on initial load */
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: var(--primary-bg);
+    color: var(--text-primary);
+    overflow: hidden;
 }
 
 .App {
-  display: flex;
-  transition: all 0.5s ease-in-out;
-  min-height: 100vh;
+    display: flex;
+    transition: all 0.5s ease-in-out;
+    min-height: 100vh;
 }
 
-/* Centered Chat View */
 .App.chat-centric {
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  width: 100vw;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
 }
 
 .App.chat-centric .chat-container {
-  width: 500px; /* Or any desired width */
-  max-width: 90%;
-  height: auto;
-  box-shadow: 0 15px 40px var(--shadow-color);
-  border-radius: 20px;
-  overflow: hidden;
+    width: 500px;
+    max-width: 90%;
+    height: auto;
+    box-shadow: 0 15px 40px var(--shadow-color);
+    border-radius: 20px;
+    overflow: hidden;
 }
 
 .App.chat-centric .product-grid-area {
-  display: none;
+    display: none;
 }
 
-/* Grid View */
 .App.grid-view {
-  display: grid;
-  grid-template-columns: 380px 1fr; /* Sidebar and main content */
-  height: 100vh;
-  width: 100vw;
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    height: 100vh;
+    width: 100vw;
 }
 
 .chat-container {
-  transition: all 0.5s ease-in-out;
-  height: 100vh;
-  overflow-y: auto;
-  background-color: var(--background-light);
-  border-right: 1px solid var(--border-color);
+    transition: all 0.5s ease-in-out;
+    height: 100vh;
+    overflow-y: auto;
+    background-color: var(--secondary-bg);
+    border-right: 1px solid var(--border-color);
 }
 
 .product-grid-area {
-  flex-grow: 1;
-  overflow-y: auto;
-  padding: 2rem;
-  position: relative;
-  background-color: var(--background-dark);
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 2rem;
+    position: relative;
+    background-color: var(--primary-bg);
 }
 
 .error-message {
-  background-color: #ff4d4d;
-  color: white;
-  padding: 1rem;
-  border-radius: 8px;
-  margin-bottom: 1.5rem;
-  text-align: center;
-  font-weight: 500;
-  box-shadow: 0 4px 15px rgba(255, 77, 77, 0.3);
+    background-color: var(--error-color);
+    color: white;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-weight: 500;
+    box-shadow: 0 4px 15px rgba(217, 83, 79, 0.3);
 }
 
-/* Scrollbar Styling */
 ::-webkit-scrollbar {
-  width: 10px;
+    width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--background-dark);
+    background: var(--primary-bg);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--card-background);
-  border-radius: 5px;
+    background: var(--tertiary-bg);
+    border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--border-color);
+    background: var(--accent-color);
 }

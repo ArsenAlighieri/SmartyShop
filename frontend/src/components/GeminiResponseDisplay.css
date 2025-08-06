@@ -1,26 +1,78 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/themes/prism-tomorrow.min.css');
+
 .gemini-response-display {
-  background-color: var(--card-background);
-  border-radius: 18px;
-  padding: 2.5rem;
-  margin-bottom: 2.5rem;
-  box-shadow: 0 10px 30px var(--shadow-color);
-  color: var(--text-primary);
-  text-align: left;
+    background-color: var(--secondary-bg);
+    color: var(--text-primary);
+    padding: 2rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+    line-height: 1.7;
+    font-size: 1.05rem;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 8px 24px var(--shadow-color);
 }
 
-.gemini-response-title {
-  font-size: 2rem;
-  font-weight: 800;
-  color: var(--accent-light-blue);
-  margin-top: 0;
-  margin-bottom: 1.8rem;
-  text-align: center;
-  letter-spacing: -0.5px;
+.gemini-response-display h1, 
+.gemini-response-display h2, 
+.gemini-response-display h3 {
+    color: var(--accent-color);
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.5rem;
+    margin-top: 1.5rem;
 }
 
-.gemini-response-content p {
-  font-size: 1.15rem;
-  line-height: 1.9;
-  color: var(--text-secondary);
-  white-space: pre-wrap; /* Preserves formatting from Gemini */
+.gemini-response-display p {
+    margin-bottom: 1rem;
+}
+
+.gemini-response-display ul, 
+.gemini-response-display ol {
+    padding-left: 2rem;
+    margin-bottom: 1rem;
+}
+
+.gemini-response-display li {
+    margin-bottom: 0.5rem;
+}
+
+.gemini-response-display strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.gemini-response-display em {
+    font-style: italic;
+    color: #f0a500; /* A distinct color for emphasis */
+}
+
+.gemini-response-display blockquote {
+    border-left: 4px solid var(--accent-color);
+    padding-left: 1.5rem;
+    margin: 1.5rem 0;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.gemini-response-display pre {
+    background-color: #2d2d2d; /* Darker background for code blocks */
+    border-radius: 10px;
+    padding: 1rem;
+    overflow-x: auto;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.95rem;
+    border: 1px solid var(--border-color);
+}
+
+.gemini-response-display code {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: var(--tertiary-bg);
+    padding: 0.2rem 0.4rem;
+    border-radius: 5px;
+    font-size: 0.9em;
+}
+
+.gemini-response-display pre code {
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
 }

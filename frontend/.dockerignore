@@ -1,0 +1,15 @@
+# Git files
+.git
+.gitignore
+
+# Local development files
+*.env
+
+# Node modules
+node_modules
+
+# Build output
+build
+
+# NPM debug log
+npm-debug.log

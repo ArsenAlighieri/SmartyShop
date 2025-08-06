@@ -11,10 +11,10 @@ import (
 )
 
 func main() {
-	// Load the .env file. Assumes the app is run from the 'backend' directory.
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatalf("FATAL: Error loading .env file. Please ensure it's in the 'backend' directory and saved with UTF-8 encoding (without BOM). Error: %v", err)
+	// Load .env file if it exists. In a Docker environment, variables will be
+	// loaded from the environment, so this is not a fatal error.
+	if err := godotenv.Load(); err != nil {
+		log.Println("INFO: .env file not found, relying on environment variables.")
 	}
 
 	// Confirm that the API key is loaded.

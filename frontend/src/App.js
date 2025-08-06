@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import AccessibilityMenu from './components/AccessibilityMenu';
-import './App.css';
+
 import ChatSidemenu from './components/ChatSidemenu';
 import ProductGrid from './components/ProductGrid';
 import LoadingSpinner from './components/LoadingSpinner';

@@ -1,0 +1,10 @@
+# Git files
+.git
+.gitignore
+
+# Local development files
+*.env
+
+# Go build files
+*.exe
+*.test
