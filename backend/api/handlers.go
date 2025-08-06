@@ -138,7 +138,23 @@ func (h *Handler) GeminiQuery(c *gin.Context) {
 		return
 	}
 
-	resp, err := gemini.GetGeminiProductInsights(req.Products, req.Query, apiKey)
+	// If no products are provided, try to scrape them based on the query
+	productsToAnalyze := req.Products
+	if len(productsToAnalyze) == 0 {
+		var scraper scrapers.Scraper
+		// Default to Trendyol for scraping if no site is specified or products are empty
+		scraper = &scrapers.TrendyolScraper{} 
+		
+		scrapedProducts, err := scraper.Scrape(req.Query)
+		if err != nil {
+			// Log the error but don't fail the request, proceed with empty products
+			fmt.Printf("Error scraping products: %v\n", err)
+		} else {
+			productsToAnalyze = scrapedProducts
+		}
+	}
+
+	resp, err := gemini.GetGeminiProductInsights(productsToAnalyze, req.Query, apiKey)
 	if err != nil {
 		c.JSON(500, gin.H{"error": err.Error()})
 		return
